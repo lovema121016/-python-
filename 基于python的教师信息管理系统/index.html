@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>教师信息管理</title>
+<link rel="stylesheet" href="css/style.default.css" type="text/css" />
+<script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="js/custom/general.js"></script>
+<script type="text/javascript" src="js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+</head>
+<body class="withvernav">
+	<div id="login">
+		<div class="bodywrapper">
+    		<div class="topheader">
+        		<div class="left">
+           			<h1 class="logo">石家庄铁道大学<span>信息管理</span></h1>
+            		<span class="slogan">欢迎管理员</span>
+            		<br clear="all" />
+
+        		</div><!--left-->
+
+        		<div class="right">
+
+            		<div class="userinfo">
+            			<img src="images/thumbs/avatar.png" alt="" />
+                		<span></span>
+            		</div><!--userinfo-->
+
+            		<div class="userinfodrop">
+            			<div class="avatar">
+                			<a href=""><img src="images/thumbs/avatarbig.png" alt="" /></a>
+                    		<div class="changetheme">Change theme: <br />
+                    			<a class="default"></a>
+                        		<a class="blueline"></a>
+                        		<a class="greenline"></a>
+                        		<a class="contrast"></a>
+                        		<a class="custombg"></a>
+                    		</div>
+                		</div><!--avatar-->
+                	<div class="userdata">
+                	<h4>姚雅丽</h4>
+                    <span class="email">1328040536@qq.com</span>
+                    <ul>
+                    	<li><a href="edit_password.jsp">编辑信息</a></li>
+                        <li><a href="Logout">退出</a></li>
+                    </ul>
+                </div><!--userdata-->
+            </div><!--userinfodrop-->
+        </div><!--right-->
+    </div><!--topheader-->
+
+
+    <div class="header">
+        	<ul class="headermenu">
+        	<li  class="current"><a href="enter_title.jsp"><span class="icon icon-flatscreen"></span>查询教师信息</a></li>
+            <li><a href="shenhe_apply.jsp"><span class="icon icon-flatscreen"></span>添加教师</a></li>
+        </ul>
+    </div><!--header-->
+    <div class="vernav2 iconmenu">
+    	<ul>
+        	<li class="current"><a href="#formsub" class="editor">信息管理</a>
+					<span class="arrow"></span>
+                    <ul id="formsub">
+                    <li ><a href="templates/add.html">添加教师</a></li>
+                    <li  class="current"><a href="index.html">查询教师</a></li>
+					</ul>
+			 </li>
+        </ul>
+        <a class="togglemenu"></a>
+        <br /><br />
+    </div><!--leftmenu-->
+    <div class="centercontent">
+		<div  class="contentwrapper lineheight21">
+			<div style="margin-left:200px;margin-top:30px">
+                <form action="select.jsp" method="post" >
+					<span class="field">
+						<select name="option" style = "float:left;width:40px">
+							<option value="type">教师编号</option>
+							<option value="name">教师姓名</option>
+                            <option value="name">出生年月范围</option>
+                            <option value="name">工资范围</option>
+                            <option value="name">参加工作时间范围</option>
+						</select>
+					</span>
+					<input type="text" style="float:left;width:500px" name="content" >
+					<button type="submit">搜索</button>
+				</form>
+				<br><br>
+			</div>
+		 	<table cellpadding="0" cellspacing="0" border="0" class="stdtable">
+
+		 		<thead>
+                	<tr>
+                    	<th class="head0">教师编号</th>
+                        <th class="head1">教师姓名</th>
+                        <th class="head2">身份证号</th>
+                        <th class="head2">出生年月</th>
+                        <th class="head2">地址</th>
+                        <th class="head2">电话</th>
+                        <th class="head2">部门</th>
+                        <th class="head2">工资</th>
+                        <th class="head2">参加工作时间</th>
+                        <th class="head2">专业</th>
+                        <th class="head2">职务</th>
+                        <th class="head2">备注</th>
+                     </tr>
+              	</thead>
+              	<tbody>
+                {% for teacher in results %}
+                	<tr>
+                        <td>{{ teacher[0] }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="deleteVolunteer.jsp?id=<%=volunteer.getId()%>" onClick="return confirm('确定删除?');">删除用户</a></td>
+                    </tr>
+
+              </tbody>
+		 </table>
+	</div>
+</div>
+</div>
+</div>
+</body>

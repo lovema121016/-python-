@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>教师信息管理</title>
+
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.default.css') }}"/>
+<script src="{{ url_for('static', filename='js/plugins/jquery-1.7.min.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/custom/general.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/plugins/jquery-ui-1.8.16.custom.min.js') }}" type="text/javascript"></script>
+</head>
+<body class="withvernav">
+	<div id="login">
+		<div class="bodywrapper">
+    		<div class="topheader">
+        		<div class="left">
+           			<h1 class="logo">石家庄铁道大学<span>信息管理</span></h1>
+            		<span class="slogan">欢迎管理员</span>
+            		<br clear="all" />
+
+        		</div><!--left-->
+
+        		<div class="right">
+
+            		<div class="userinfo">
+            			<img src="images/thumbs/avatar.png" alt="" />
+                		<span></span>
+            		</div><!--userinfo-->
+
+            		<div class="userinfodrop">
+            			<div class="avatar">
+                			<a href=""><img src="images/thumbs/avatarbig.png" alt="" /></a>
+                    		<div class="changetheme">Change theme: <br />
+                    			<a class="default"></a>
+                        		<a class="blueline"></a>
+                        		<a class="greenline"></a>
+                        		<a class="contrast"></a>
+                        		<a class="custombg"></a>
+                    		</div>
+                		</div><!--avatar-->
+                	<div class="userdata">
+                	<h4>姚雅丽</h4>
+                    <span class="email">1328040536@qq.com</span>
+                    <ul>
+                    	<li><a href="edit_password.jsp">编辑信息</a></li>
+                        <li><a href="Logout">退出</a></li>
+                    </ul>
+                </div><!--userdata-->
+            </div><!--userinfodrop-->
+        </div><!--right-->
+    </div><!--topheader-->
+
+
+   <div class="header">
+    	<ul class="headermenu">
+        	<li class="current"> <a><span class="icon icon-flatscreen"></span>信息管理</a></li>
+        </ul>
+    </div><!--header-->
+    <div class="vernav2 iconmenu">
+    	<ul>
+        	<li class="current"><a href="#formsub" class="editor">信息管理</a>
+					<span class="arrow"></span>
+                    <ul id="formsub">
+                    <li ><a href="{{ url_for('addInformation') }}">添加教师</a></li>
+                    <li  class="current"><a href="#">查询教师</a></li>
+					</ul>
+			 </li>
+        </ul>
+        <a class="togglemenu"></a>
+        <br /><br />
+    </div><!--leftmenu-->
+    <div class="centercontent">
+		<div  class="contentwrapper lineheight21">
+			<div style="margin-left:200px;margin-top:30px">
+                <form action="{{ url_for('select') }}" method="post" >
+					<span class="field">
+						<select name="type" id="type" onchange="option(this)" style = "float:left;width:40px">
+							 <option value="number">教师编号</option>
+							 <option value="name">教师姓名</option>
+                            <option value="birthday">出生年月范围</option>
+                            <option value="money" >工资范围</option>
+                            <option value="work_time">参加工作时间范围</option>
+						</select>
+					</span>
+					<input type="text" id="con1" style="float:left;width:500px" name="content" >
+                    <input type="number" id="money1" hidden name="money1">
+                    <input type="number" id="money2" hidden name="money2">
+                    <input type="date" id="date1" hidden name="date1">
+                    <input type="date" id="date2" hidden name="date2">
+					<button type="submit">搜索</button>
+				</form>
+				<br><br>
+			</div>
+		 	<table cellpadding="0" cellspacing="0" border="0" class="stdtable">
+
+		 		<thead>
+
+                	<tr>
+                    	<th class="head0">教师编号</th>
+                        <th class="head1">教师姓名</th>
+                        <th class="head2">身份证号</th>
+                        <th class="head2">出生年月</th>
+                        <th class="head2">地址</th>
+                        <th class="head2">电话</th>
+                        <th class="head2">部门</th>
+                        <th class="head2">工资</th>
+                        <th class="head2">参加工作时间</th>
+                        <th class="head2">专业</th>
+                        <th class="head2">职务</th>
+                        <th class="head2">备注</th>
+                        <th class="head2">操作</th>
+                     </tr>
+
+              	</thead>
+              	<tbody>
+                 {% for item in results %}
+                	<tr>
+                        <td>{{ item[1] }}</td>
+                        <td>{{ item[2] }}</td>
+                        <td>{{ item[3] }}</td>
+                        <td>{{ item[4] }}</td>
+                        <td>{{ item[5] }}</td>
+                        <td>{{ item[6] }}</td>
+                        <td>{{ item[7] }}</td>
+                        <td>{{ item[8] }}</td>
+                        <td>{{ item[9] }}年</td>
+                        <td>{{ item[10] }}</td>
+                        <td>{{ item[11] }}</td>
+                        <td>{{ item[12] }}</td>
+                        <td><a style="color:red" href="{{ url_for('delete',number=item[1]) }}" onClick="return confirm('确定删除?');">删除用户</a><a style="color:blue" href="{{ url_for('update',number=item[1]) }}">修改信息</a></td>
+                    </tr>
+                 {% endfor %}
+              </tbody>
+		 </table>
+	</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+function option(obj){
+	var type=obj.value;
+	if(type=="money"||type=="work_time")
+    {
+        document.getElementById("con1").style.display="none";
+        document.getElementById("money1").style.display="inline";
+        document.getElementById("money2").style.display="inline";
+        document.getElementById("date1").style.display="none";
+        document.getElementById("date2").style.display="none";
+    }else if(type=="number")
+    {
+        document.getElementById("con1").style.display="inline";
+        document.getElementById("money1").style.display="none";
+        document.getElementById("money2").style.display="none";
+        document.getElementById("date1").style.display="none";
+        document.getElementById("date2").style.display="none";
+    }else if(type=="name")
+    {
+        document.getElementById("con1").style.display="inline";
+        document.getElementById("money1").style.display="none";
+        document.getElementById("money2").style.display="none";
+        document.getElementById("date1").style.display="none";
+        document.getElementById("date2").style.display="none";
+    }else{
+        document.getElementById("con1").style.display="none";
+        document.getElementById("money1").style.display="none";
+        document.getElementById("money2").style.display="none";
+        document.getElementById("date1").style.display="inline";
+        document.getElementById("date2").style.display="inline";
+    }
+}
+</script>
+</body>
